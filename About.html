@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="th" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jirapon Muangphuan — Data Engineer</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;family=Noto+Sans+Thai:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; }
+    body { font-family: 'Poppins', 'Noto Sans Thai', sans-serif; background: #fafafa; }
+
+    .gradient-blob { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.05; animation: float 12s ease-in-out infinite; }
+    .blob-1 { width: 400px; height: 400px; top: -80px; right: -80px; background: #2d5596; animation-delay: 0s; }
+    .blob-2 { width: 350px; height: 350px; bottom: 10%; left: -100px; background: #4a7ab3; animation-delay: -4s; }
+    .blob-3 { width: 300px; height: 300px; top: 50%; right: 5%; background: #5b8ec4; animation-delay: -6s; }
+
+    @keyframes float { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(20px, -20px); } }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(25px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-up { animation: fadeUp 0.6s ease-out forwards; opacity: 0; }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+    .delay-5 { animation-delay: 0.5s; }
+    .delay-6 { animation-delay: 0.6s; }
+
+    .card-hover { transition: all 0.3s ease; }
+    .card-hover:hover { transform: translateY(-2px); box-shadow: 0 8px 16px rgba(45, 85, 150, 0.08); }
+
+    .timeline-item:hover .timeline-dot { transform: scale(1.3); box-shadow: 0 0 0 8px rgba(45, 85, 150, 0.08); }
+    .timeline-dot { transition: all 0.3s ease; }
+
+    .skill-tag { display: inline-block; padding: 6px 14px; background: #f0f4f8; color: #2d5596; border-radius: 20px; font-size: 13px; font-weight: 500; margin-right: 8px; margin-bottom: 8px; }
+
+    .nav-link { position: relative; transition: color 0.3s ease; }
+    .nav-link::after { content: ''; position: absolute; bottom: -6px; left: 0; width: 0; height: 2px; background: #2d5596; transition: width 0.3s ease; }
+    .nav-link:hover::after { width: 100%; }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #d0d0d0; border-radius: 3px; }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div id="app-wrapper" class="h-full w-full overflow-auto relative">
+   <div class="gradient-blob blob-1"></div>
+   <div class="gradient-blob blob-2"></div>
+   <div class="gradient-blob blob-3"></div><!-- Navigation -->
+   <nav class="sticky top-0 z-50 backdrop-blur-md border-b border-gray-200 bg-white/95">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+     <div class="flex items-center gap-2">
+      <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center font-bold text-white text-sm">
+       JP
+      </div><span id="nav-name" class="font-semibold text-gray-900 text-lg">Jirapon Muangphuan</span>
+     </div>
+     <div class="hidden md:flex items-center gap-8">
+      <a href="#about" class="nav-link text-sm font-medium text-gray-600" onclick="scrollToSection(event,'about')">About</a> <a href="#experience" class="nav-link text-sm font-medium text-gray-600" onclick="scrollToSection(event,'experience')">Experience</a> <a href="#skills" class="nav-link text-sm font-medium text-gray-600" onclick="scrollToSection(event,'skills')">Skills</a> <a href="#education" class="nav-link text-sm font-medium text-gray-600" onclick="scrollToSection(event,'education')">Education</a> <a href="#contact" class="nav-link text-sm font-medium text-gray-600" onclick="scrollToSection(event,'contact')">Contact</a>
+     </div><button id="mobile-menu-btn" class="md:hidden text-gray-900" onclick="toggleMobileMenu()"> <i data-lucide="menu" style="width:24px;height:24px;"></i> </button>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 flex flex-col gap-3 border-t border-gray-200">
+     <a href="#about" class="text-sm font-medium py-2 text-gray-600" onclick="scrollToSection(event,'about');toggleMobileMenu();">About</a> <a href="#experience" class="text-sm font-medium py-2 text-gray-600" onclick="scrollToSection(event,'experience');toggleMobileMenu();">Experience</a> <a href="#skills" class="text-sm font-medium py-2 text-gray-600" onclick="scrollToSection(event,'skills');toggleMobileMenu();">Skills</a> <a href="#education" class="text-sm font-medium py-2 text-gray-600" onclick="scrollToSection(event,'education');toggleMobileMenu();">Education</a> <a href="#contact" class="text-sm font-medium py-2 text-gray-600" onclick="scrollToSection(event,'contact');toggleMobileMenu();">Contact</a>
+    </div>
+   </nav><!-- Hero Section -->
+   <header id="about" class="relative max-w-6xl mx-auto px-6 pt-20 pb-16">
+    <div class="flex flex-col lg:flex-row items-center gap-12">
+     <div class="fade-up delay-1 flex-shrink-0">
+      <div class="w-48 h-48 rounded-3xl bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center text-6xl font-bold text-white relative overflow-hidden shadow-lg">
+       <span>JP</span>
+       <div class="absolute inset-0 rounded-3xl" style="box-shadow: inset 0 0 40px rgba(255,255,255,0.1);"></div>
+      </div>
+     </div>
+     <div class="text-center lg:text-left">
+      <div class="fade-up delay-1">
+       <span class="inline-block px-4 py-1.5 rounded-full text-xs font-semibold bg-blue-50 text-blue-600 mb-4">Open to Opportunities</span>
+      </div>
+      <h1 id="hero-name" class="fade-up delay-2 text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 leading-tight">Jirapon <br><span class="text-blue-600">Muangphuan</span></h1>
+      <p id="hero-title" class="fade-up delay-3 text-xl md:text-2xl font-light mt-4 text-gray-700">System Administrator &amp; Data Engineer</p>
+      <p id="hero-bio" class="fade-up delay-4 mt-6 max-w-2xl text-base leading-relaxed text-gray-600">System Administrator with experience in SQL Server, data validation, and system monitoring. Skilled in Grafana dashboards, data workflows, and ETL processes. Currently pursuing a Master's degree in Computer Science with a focus on Data Engineering.</p>
+      <div class="fade-up delay-5 flex flex-wrap gap-3 mt-8 justify-center lg:justify-start">
+       <a href="#contact" onclick="scrollToSection(event,'contact')" class="card-hover inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-blue-600 text-white font-semibold text-sm shadow-md hover:shadow-lg"> <i data-lucide="mail" style="width:16px;height:16px;"></i> ติดต่อฉัน </a> <a href="#experience" onclick="scrollToSection(event,'experience')" class="card-hover inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-gray-100 text-blue-600 font-semibold text-sm hover:bg-gray-200"> <i data-lucide="briefcase" style="width:16px;height:16px;"></i> ดูผลงาน </a>
+      </div>
+     </div>
+    </div><!-- Quick Stats -->
+    <div class="fade-up delay-6 grid grid-cols-2 md:grid-cols-4 gap-4 mt-16">
+     <div class="card-hover text-center p-6 rounded-2xl bg-white border border-gray-200 shadow-sm">
+      <div class="text-3xl font-bold text-blue-600">
+       1 y 10 m
+      </div>
+      <div class="text-xs mt-2 font-medium text-gray-600">
+       ปีประสบการณ์ทำงาน
+      </div>
+     </div>
+     <div class="card-hover text-center p-6 rounded-2xl bg-white border border-gray-200 shadow-sm">
+      <div class="text-3xl font-bold text-blue-600">
+       3
+      </div>
+      <div class="text-xs mt-2 font-medium text-gray-600">
+       บริษัท / องค์กร
+      </div>
+     </div>
+     <div class="card-hover text-center p-6 rounded-2xl bg-white border border-gray-200 shadow-sm">
+      <div class="text-3xl font-bold text-blue-600">
+       SQL
+      </div>
+      <div class="text-xs mt-2 font-medium text-gray-600">
+       ทักษะหลัก
+      </div>
+     </div>
+     <div class="card-hover text-center p-6 rounded-2xl bg-white border border-gray-200 shadow-sm">
+      <div class="text-3xl font-bold text-blue-600">
+       ETL
+      </div>
+      <div class="text-xs mt-2 font-medium text-gray-600">
+       Data Pipelines
+      </div>
+     </div>
+    </div>
+   </header><!-- Experience Section -->
+   <section id="experience" class="relative max-w-6xl mx-auto px-6 py-20">
+    <div class="fade-up">
+     <h2 class="text-3xl font-bold text-gray-900 mb-2">ประสบการณ์ทำงาน</h2>
+     <div class="w-16 h-1 rounded-full mb-12 bg-blue-600"></div>
+    </div>
+    <div class="relative pl-8 border-l-2 border-gray-300">
+     <div class="timeline-item relative mb-12 fade-up delay-1">
+      <div class="timeline-dot absolute -left-[calc(2rem+5px)] w-3 h-3 rounded-full mt-1.5 bg-blue-600"></div>
+      <div class="card-hover p-6 rounded-2xl bg-white border border-gray-200 shadow-sm">
+       <div class="flex flex-wrap items-center gap-3 mb-3">
+        <span class="px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-600">6 Oct 2025 — Present</span> <span class="text-xs text-gray-500">Mappoint Asia Logistics Solutions Co., Ltd.</span>
+       </div>
+       <h3 class="text-lg font-bold text-gray-900">Sr. System Administrator</h3>
+       <ul class="mt-3 space-y-2 text-sm text-gray-600">
+        <li class="flex items-start gap-2"><i data-lucide="server" style="width:14px;height:14px;color:#2d5596;margin-top:3px;flex-shrink:0;"></i>Managed and maintained servers and critical services to ensure high availability and system stability.</li>
+        <li class="flex items-start gap-2"><i data-lucide="database" style="width:14px;height:14px;color:#2d5596;margin-top:3px;flex-shrink:0;"></i>Monitored database performance and ensured data integrity through data validation processes.</li>
+        <li class="flex items-start gap-2"><i data-lucide="chart-line" style="width:14px;height:14px;color:#2d5596;margin-top:3px;flex-shrink:0;"></i>Designed and developed Grafana dashboards integrated with Microsoft SQL Server for data monitoring and real-time insights.</li>
+        <li class="flex items-start gap-2"><i data-lucide="flow-chart" style="width:14px;height:14px;color:#2d5596;margin-top:3px;flex-shrink:0;"></i>Queried and transformed data from SQL Server to support internal teams, contributing to data pipeline workflows.</li>
+        <li class="flex items-start gap-2"><i data-lucide="settings" style="width:14px;height:14px;color:#2d5596;margin-top:3px;flex-shrink:0;"></i>Supported data extraction, validation, and delivery aligned with ETL (Extract, Transform, Load) processes.</li>
+        <li class="flex items-start gap-2"><i data-lucide="headset" style="width:14px;height:14px;color:#2d5596;margin-top:3px;flex-shrink:0;"></i>Provided technical support for database, server, and system-related incidents across the organization.</li>
+        <li class="flex items-start gap-2"><i data-lucide="alert-circle" style="width:14px;height:14px;color:#2d5596;margin-top:3px;flex-shrink:0;"></i>Troubleshot IT infrastructure issues and coordinated with vendors to ensure operational continuity.</li>
+       </ul>
+      </div>
+     </div>
+     <div class="timeline-item relative mb-12 fade-up delay-2">
+      <div class="timeline-dot absolute -left-[calc(2rem+5px)] w-3 h-3 rounded-full mt-1.5 bg-blue-500"></div>
+      <div class="card-hover p-6 rounded-2xl bg-white border border-gray-200 shadow-sm">
+       <div class="flex flex-wrap items-center gap-3 mb-3">
+        <span class="px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-600">17 Feb 2025 — 3 Oct 2025</span> <span class="text-xs text-gray-500">Inventec Electronics (Thailand) Co., Ltd.</span>
+       </div>
+       <h3 class="text-lg font-bold text-gray-900">System Industrial Engineer</h3>
+       <ul class="mt-3 space-y-2 text-sm text-gray-600">
+        <li class="flex items-start gap-2"><i data-lucide="code-2" style="width:14px;height:14px;color:#2d5596;margin-top:3px;flex-shrink:0;"></i>Developed SQL scripts (insert, update, delete, select) in Microsoft SQL Server with data validation and verification.</li>
+        <li class="flex items-start gap-2"><i data-lucide="check-square" style="width:14px;height:14px;color:#2d5596;margin-top:3px;flex-shrink:0;"></i>Performed cross-functional data validation to ensure consistency across business processes.</li>
+        <li class="flex items-start gap-2"><i data-lucide="box" style="width:14px;height:14px;color:#2d5596;margin-top:3px;flex-shrink:0;"></i>Managed product labeling data and ensured alignment between database records and production line operations.</li>
+        <li class="flex items-start gap-2"><i data-lucide="alert-octagon" style="width:14px;height:14px;color:#2d5596;margin-top:3px;flex-shrink:0;"></i>Identified and resolved data discrepancies in collaboration with Product Managers and external stakeholders.</li>
+        <li class="flex items-start gap-2"><i data-lucide="clipboard" style="width:14px;height:14px;color:#2d5596;margin-top:3px;flex-shrink:0;"></i>Handled data issue workflows by coordinating corrections and maintaining data quality.</li>
+        <li class="flex items-start gap-2"><i data-lucide="layers" style="width:14px;height:14px;color:#2d5596;margin-top:3px;flex-shrink:0;"></i>Ingested and maintained production data to support downstream processes and data pipeline workflows.</li>
+       </ul>
+      </div>
+     </div>
+     <div class="timeline-item relative fade-up delay-3">
+      <div class="timeline-dot absolute -left-[calc(2rem+5px)] w-3 h-3 rounded-full mt-1.5 bg-blue-400"></div>
+      <div class="card-hover p-6 rounded-2xl bg-white border border-gray-200 shadow-sm">
+       <div class="flex flex-wrap items-center gap-3 mb-3">
+        <span class="px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-600">21 May 2024 — 15 Feb 2025</span> <span class="text-xs text-gray-500">Super Products Co., Ltd.</span>
+       </div>
+       <h3 class="text-lg font-bold text-gray-900">Programmer and IT Support</h3>
+       <ul class="mt-3 space-y-2 text-sm text-gray-600">
+        <li class="flex items-start gap-2"><i data-lucide="wrench" style="width:14px;height:14px;color:#2d5596;margin-top:3px;flex-shrink:0;"></i>Provided internal IT support for network, desktop, and system-related issues, ensuring operational continuity.</li>
+        <li class="flex items-start gap-2"><i data-lucide="layers" style="width:14px;height:14px;color:#2d5596;margin-top:3px;flex-shrink:0;"></i>Developed and optimized Stored Procedures in Microsoft SQL Server for data extraction and transformation aligned with ETL processes.</li>
+        <li class="flex items-start gap-2"><i data-lucide="file-text" style="width:14px;height:14px;color:#2d5596;margin-top:3px;flex-shrink:0;"></i>Designed and generated business reports (e.g., PO, SO, Invoice) using MS Report Builder integrated with SQL Server and ERP systems.</li>
+        <li class="flex items-start gap-2"><i data-lucide="zap" style="width:14px;height:14px;color:#2d5596;margin-top:3px;flex-shrink:0;"></i>Automated reporting workflows by configuring ERP system logic and commands.</li>
+        <li class="flex items-start gap-2"><i data-lucide="message-circle" style="width:14px;height:14px;color:#2d5596;margin-top:3px;flex-shrink:0;"></i>Gathered user requirements and translated them into technical specifications for system improvements.</li>
+        <li class="flex items-start gap-2"><i data-lucide="users" style="width:14px;height:14px;color:#2d5596;margin-top:3px;flex-shrink:0;"></i>Collaborated with developers to enhance ERP functionalities and optimize workflows.</li>
+        <li class="flex items-start gap-2"><i data-lucide="check-circle" style="width:14px;height:14px;color:#2d5596;margin-top:3px;flex-shrink:0;"></i>Ensured data accuracy and consistency across systems through data validation and structured data handling.</li>
+       </ul>
+      </div>
+     </div>
+    </div>
+   </section><!-- Skills Section -->
+   <section id="skills" class="relative max-w-6xl mx-auto px-6 py-20">
+    <div class="fade-up">
+     <h2 class="text-3xl font-bold text-gray-900 mb-2">ทักษะ</h2>
+     <div class="w-16 h-1 rounded-full mb-12 bg-blue-600"></div>
+    </div>
+    <div class="grid md:grid-cols-2 gap-10">
+     <!-- Technical Skills -->
+     <div class="fade-up delay-1">
+      <h3 class="text-lg font-bold text-gray-900 mb-6 flex items-center gap-2"><i data-lucide="code-2" style="width:20px;height:20px;color:#2d5596;"></i> Technical Skills</h3>
+      <div class="space-y-4">
+       <div>
+        <div class="text-sm font-medium text-gray-900 mb-2">
+         SQL / T-SQL
+        </div><span class="skill-tag">Microsoft SQL Server</span> <span class="skill-tag">Query Optimization</span> <span class="skill-tag">Stored Procedures</span>
+       </div>
+       <div>
+        <div class="text-sm font-medium text-gray-900 mb-2">
+         Data Engineering
+        </div><span class="skill-tag">ETL Processes</span> <span class="skill-tag">Data Validation</span> <span class="skill-tag">Data Pipeline</span>
+       </div>
+       <div>
+        <div class="text-sm font-medium text-gray-900 mb-2">
+         Development
+        </div><span class="skill-tag">Python</span> <span class="skill-tag">JavaScript</span> <span class="skill-tag">HTML/CSS</span>
+       </div>
+       <div>
+        <div class="text-sm font-medium text-gray-900 mb-2">
+         Other
+        </div><span class="skill-tag">Database Design</span> <span class="skill-tag">System Monitoring</span> <span class="skill-tag">Data Analysis</span>
+       </div>
+      </div>
+     </div><!-- Tools & Soft Skills -->
+     <div class="fade-up delay-2">
+      <h3 class="text-lg font-bold text-gray-900 mb-6 flex items-center gap-2"><i data-lucide="wrench" style="width:20px;height:20px;color:#2d5596;"></i> Tools &amp; Soft Skills</h3>
+      <div class="space-y-6">
+       <div>
+        <div class="text-sm font-medium text-gray-900 mb-3">
+         Tools
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+         <div class="p-3 rounded-lg bg-blue-50 text-center text-sm font-medium text-gray-900">
+          📊 Grafana
+         </div>
+         <div class="p-3 rounded-lg bg-blue-50 text-center text-sm font-medium text-gray-900">
+          🗄️ SQL Server
+         </div>
+         <div class="p-3 rounded-lg bg-blue-50 text-center text-sm font-medium text-gray-900">
+          📈 Power BI
+         </div>
+         <div class="p-3 rounded-lg bg-blue-50 text-center text-sm font-medium text-gray-900">
+          ⚙️ ERP System
+         </div>
+         <div class="p-3 rounded-lg bg-blue-50 text-center text-sm font-medium text-gray-900">
+          💻 VS Code
+         </div>
+         <div class="p-3 rounded-lg bg-blue-50 text-center text-sm font-medium text-gray-900">
+          🔄 Google Apps
+         </div>
+        </div>
+       </div>
+       <div>
+        <div class="text-sm font-medium text-gray-900 mb-3">
+         Soft Skills
+        </div>
+        <div class="space-y-2">
+         <div class="flex items-center gap-2 text-gray-700"><i data-lucide="check-circle" style="width:16px;height:16px;color:#2d5596;"></i> Problem Solving
+         </div>
+         <div class="flex items-center gap-2 text-gray-700"><i data-lucide="check-circle" style="width:16px;height:16px;color:#2d5596;"></i> Teamwork
+         </div>
+         <div class="flex items-center gap-2 text-gray-700"><i data-lucide="check-circle" style="width:16px;height:16px;color:#2d5596;"></i> Communication
+         </div>
+         <div class="flex items-center gap-2 text-gray-700"><i data-lucide="check-circle" style="width:16px;height:16px;color:#2d5596;"></i> Time Management
+         </div>
+         <div class="flex items-center gap-2 text-gray-700"><i data-lucide="check-circle" style="width:16px;height:16px;color:#2d5596;"></i> Adaptability
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Education Section -->
+   <section id="education" class="relative max-w-6xl mx-auto px-6 py-20">
+    <div class="fade-up">
+     <h2 class="text-3xl font-bold text-gray-900 mb-2">การศึกษา</h2>
+     <div class="w-16 h-1 rounded-full mb-12 bg-blue-600"></div>
+    </div>
+    <div class="grid md:grid-cols-2 gap-6">
+     <div class="card-hover fade-up delay-1 p-6 rounded-2xl bg-white border border-gray-200 shadow-sm">
+      <div class="flex items-center gap-3 mb-4">
+       <div class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center text-xl">
+        🎓
+       </div>
+       <div>
+        <h3 class="font-bold text-gray-900">Master of Science</h3>
+        <p class="text-xs text-gray-500">Computer Science (Data Engineering)</p>
+       </div>
+      </div>
+      <p class="text-sm text-gray-600"><strong>Thammasat University</strong> — 2022 – Present</p>
+      <p class="text-xs text-gray-500 mt-2">Faculty of Science &amp; Technology</p>
+     </div>
+     <div class="card-hover fade-up delay-2 p-6 rounded-2xl bg-white border border-gray-200 shadow-sm">
+      <div class="flex items-center gap-3 mb-4">
+       <div class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center text-xl">
+        🏫
+       </div>
+       <div>
+        <h3 class="font-bold text-gray-900">Bachelor of Engineering</h3>
+        <p class="text-xs text-gray-500">Electronics &amp; Computer Systems</p>
+       </div>
+      </div>
+      <p class="text-sm text-gray-600"><strong>Silpakorn University</strong> — 2018 – 2022</p>
+      <p class="text-xs text-gray-500 mt-2">Faculty of Engineering and Industrial Technology</p>
+     </div>
+    </div>
+   </section><!-- Contact Section -->
+   <section id="contact" class="relative max-w-6xl mx-auto px-6 py-20">
+    <div class="fade-up">
+     <h2 class="text-3xl font-bold text-gray-900 mb-2">ติดต่อ</h2>
+     <div class="w-16 h-1 rounded-full mb-12 bg-blue-600"></div>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6 fade-up delay-1">
+     <div class="card-hover p-6 rounded-2xl bg-white border border-gray-200 shadow-sm text-center">
+      <div class="w-12 h-12 mx-auto rounded-lg bg-blue-100 flex items-center justify-center mb-4">
+       <i data-lucide="mail" style="width:20px;height:20px;color:#2d5596;"></i>
+      </div>
+      <div class="text-xs font-medium uppercase tracking-wider text-gray-500 mb-2">
+       Email
+      </div>
+      <div id="contact-email" class="text-sm font-medium text-gray-900">
+       ice.jirapon@gmail.com
+      </div>
+     </div>
+     <div class="card-hover p-6 rounded-2xl bg-white border border-gray-200 shadow-sm text-center">
+      <div class="w-12 h-12 mx-auto rounded-lg bg-blue-100 flex items-center justify-center mb-4">
+       <i data-lucide="phone" style="width:20px;height:20px;color:#2d5596;"></i>
+      </div>
+      <div class="text-xs font-medium uppercase tracking-wider text-gray-500 mb-2">
+       Phone
+      </div>
+      <div id="contact-phone" class="text-sm font-medium text-gray-900">
+       082-2527019
+      </div>
+     </div>
+     <div class="card-hover p-6 rounded-2xl bg-white border border-gray-200 shadow-sm text-center">
+      <div class="w-12 h-12 mx-auto rounded-lg bg-blue-100 flex items-center justify-center mb-4">
+       <i data-lucide="map-pin" style="width:20px;height:20px;color:#2d5596;"></i>
+      </div>
+      <div class="text-xs font-medium uppercase tracking-wider text-gray-500 mb-2">
+       Location
+      </div>
+      <div id="contact-location" class="text-sm font-medium text-gray-900">
+       SkyView @TU, Pathum Thani
+      </div>
+     </div>
+    </div>
+   </section><!-- Footer -->
+   <footer class="relative max-w-6xl mx-auto px-6 py-8 text-center border-t border-gray-200 mt-8">
+    <p class="text-xs text-gray-500">© 2026 Jirapon Muangphuan Portfolio</p>
+   </footer>
+  </div>
+  <script>
+    const defaultConfig = {
+      full_name: 'Jirapon Muangphuan',
+      job_title: 'System Administrator & Data Engineer',
+      bio_text: 'System Administrator with experience in SQL Server, data validation, and system monitoring. Skilled in Grafana dashboards, data workflows, and ETL processes. Currently pursuing a Master\'s degree in Computer Science with a focus on Data Engineering.',
+      email_address: 'ice.jirapon@gmail.com',
+      phone_number: '082-2527019',
+      location_text: 'SkyView @TU, Pathum Thani 12120, Thailand',
+      font_family: 'Poppins',
+      font_size: 16
+    };
+
+    function scrollToSection(e, id) {
+      e.preventDefault();
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function toggleMobileMenu() {
+      document.getElementById('mobile-menu').classList.toggle('hidden');
+    }
+
+    function applyConfig(config) {
+      const c = { ...defaultConfig, ...config };
+      const font = c.font_family || defaultConfig.font_family;
+      const fontStack = `${font}, 'Noto Sans Thai', sans-serif`;
+      
+      document.body.style.fontFamily = fontStack;
+      
+      const nameParts = (c.full_name || defaultConfig.full_name).split(' ');
+      const firstName = nameParts[0] || '';
+      const lastName = nameParts.slice(1).join(' ') || '';
+      
+      document.getElementById('hero-name').innerHTML = `${firstName} <br><span class="text-blue-600">${lastName}</span>`;
+      document.getElementById('nav-name').textContent = firstName;
+      document.getElementById('hero-title').textContent = c.job_title || defaultConfig.job_title;
+      document.getElementById('hero-bio').textContent = c.bio_text || defaultConfig.bio_text;
+      document.getElementById('contact-email').textContent = c.email_address || defaultConfig.email_address;
+      document.getElementById('contact-phone').textContent = c.phone_number || defaultConfig.phone_number;
+      document.getElementById('contact-location').textContent = c.location_text || defaultConfig.location_text;
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (config) => { applyConfig(config); },
+        mapToCapabilities: (config) => ({
+          recolorables: [],
+          borderables: [],
+          fontEditable: {
+            get: () => config.font_family || defaultConfig.font_family,
+            set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); }
+          },
+          fontSizeable: {
+            get: () => config.font_size || defaultConfig.font_size,
+            set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); }
+          }
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ['full_name', config.full_name || defaultConfig.full_name],
+          ['job_title', config.job_title || defaultConfig.job_title],
+          ['bio_text', config.bio_text || defaultConfig.bio_text],
+          ['email_address', config.email_address || defaultConfig.email_address],
+          ['phone_number', config.phone_number || defaultConfig.phone_number],
+          ['location_text', config.location_text || defaultConfig.location_text]
+        ])
+      });
+    }
+
+    lucide.createIcons();
+  </script>
+ <script>
+  (function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e75fc6db382732e',t:'MTc3NTM2NTE5NC4wMDAwMDA='};
+  var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');
+  a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);
+  else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();
+</script></body>
+</html>
